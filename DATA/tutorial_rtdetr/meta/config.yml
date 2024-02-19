@@ -1,0 +1,29 @@
+
+__include__: [
+  'RT_DETR_util/configs/rtdetr/rtdetr_r18vd_6x_coco.yml',
+]
+
+task: detection
+
+# num_classes: 80 
+# remap_mscoco_category: False
+
+train_dataloader:
+  dataset:
+    img_folder: DATA/tutorial_rtdetr/images
+    ann_file: ./datasets/coco128/train_annotations.json
+  batch_size: 2
+  num_workers: 2
+
+
+val_dataloader:
+  dataset:
+    img_folder: DATA/tutorial_rtdetr/images
+    ann_file: ./datasets/coco128/train_annotations.json
+  batch_size: 2
+  num_workers: 2
+
+epoches: 5
+
+output_dir: DATA/tutorial_rtdetr/result
+
