@@ -7,8 +7,8 @@ train_dataloader:
   type: DataLoader
   dataset:
     type: CocoDetection
-    img_folder: E:\Mytask\main\Dataset\coco128\images\train2017
-    ann_file: E:\Mytask\main\Dataset\coco128\train_annotations.json
+    img_folder: ./datasets/coco128/images/train2017
+    ann_file: ./datasets/coco128/train_annotations.json
     transforms:
       type: Compose
       ops: ~
@@ -22,8 +22,8 @@ val_dataloader:
   type: DataLoader
   dataset:
     type: CocoDetection
-    img_folder: E:\Mytask\main\Dataset\coco128\images\train2017
-    ann_file: E:\Mytask\main\Dataset\coco128\train_annotations.json
+    img_folder: ./datasets/coco128/images/train2017
+    ann_file: ./datasets/coco128/train_annotations.json
     transforms:
       type: Compose
       ops: ~
