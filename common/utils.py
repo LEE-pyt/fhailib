@@ -14,7 +14,7 @@ def get_meta_data(data_folder, project_name) -> dict:
     return meta_dict
 
 
-def write_meta_data(data_folder, project_name, key, value) -> dict:
+def write_meta_data(data_folder, project_name, data_dict) -> dict:
     project_folder = os.path.join(data_folder, project_name)
     meta_folder = os.path.join(project_folder, "meta")
     os.makedirs(meta_folder, exist_ok=True)  # 메타 폴더가 없으면 생성
@@ -27,8 +27,8 @@ def write_meta_data(data_folder, project_name, key, value) -> dict:
     else:
         meta_dict = {}
 
-    # 새로운 키와 값을 사전에 추가
-    meta_dict[key] = value
+    # 인수로 받은 data_dict의 키와 값을 기존 사전에 추가 또는 업데이트
+    meta_dict.update(data_dict)
 
     # 변경된 사전을 YAML 형식으로 파일에 다시 쓰기
     with open(meta_file, "w", encoding="utf-8") as meta:

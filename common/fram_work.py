@@ -34,7 +34,4 @@ def init_project(data_folder, project_name, task):
     # 메타 파일에 YAML 형식으로 태스크 정보 작성
     meta_content = {"task": task, "project_name": project_name}
 
-    with open(meta_file, "w", encoding="utf-8") as meta:
-        # YAML 형식으로 변환하여 파일에 쓰기
-        meta.write(f"task: {meta_content['task']}\n")
-        meta.write(f"description: {meta_content['project_name']}\n")
+    write_meta_data(data_folder, project_name, meta_content)
