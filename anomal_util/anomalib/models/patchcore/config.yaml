@@ -1,9 +1,9 @@
 dataset:
   name: mvtec
   format: mvtec
-  path: ./datasets/MVTec
+  path: E:\Mytask\main\Dataset\MVTec
   task: segmentation
-  category: capsule
+  category: leather
   train_batch_size: 32
   eval_batch_size: 32
   num_workers: 8
