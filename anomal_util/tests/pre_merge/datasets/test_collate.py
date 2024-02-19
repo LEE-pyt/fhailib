@@ -6,7 +6,7 @@ import pytest
 import torch
 from torch import Tensor
 
-from anomalib.data.base.datamodule import collate_fn
+from anomal_util.data.base.datamodule import collate_fn
 
 
 @pytest.fixture

@@ -11,9 +11,9 @@ from importlib.util import find_spec
 
 import pytest
 
-from anomalib.data import TaskType
-from anomalib.deploy import ExportMode, export
-from anomalib.models import get_model
+from anomal_util.data import TaskType
+from anomal_util.deploy import ExportMode, export
+from anomal_util.models import get_model
 
 sys.path.append("tools/inference")
 

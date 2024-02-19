@@ -15,7 +15,7 @@ import pytest
 import skimage
 from torch import Tensor
 
-from anomalib.data.utils import get_transforms
+from anomal_util.data.utils import get_transforms
 
 
 def test_transforms_and_image_size_cannot_be_none():

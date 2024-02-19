@@ -6,7 +6,7 @@ import torch
 from torchvision.models import ResNet18_Weights, resnet18
 from torchvision.models.efficientnet import EfficientNet_B5_Weights
 
-from anomalib.models.components.feature_extractors import (
+from anomal_util.models.components.feature_extractors import (
     BackboneParams,
     FeatureExtractor,
     TorchFXFeatureExtractor,

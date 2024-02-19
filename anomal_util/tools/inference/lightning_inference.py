@@ -9,11 +9,11 @@ from pathlib import Path
 from pytorch_lightning import Trainer
 from torch.utils.data import DataLoader
 
-from anomalib.config import get_configurable_parameters
-from anomalib.data.inference import InferenceDataset
-from anomalib.data.utils import InputNormalizationMethod, get_transforms
-from anomalib.models import get_model
-from anomalib.utils.callbacks import get_callbacks
+from anomal_util.config import get_configurable_parameters
+from anomal_util.data.inference import InferenceDataset
+from anomal_util.data.utils import InputNormalizationMethod, get_transforms
+from anomal_util.models import get_model
+from anomal_util.utils.callbacks import get_callbacks
 
 
 def get_parser() -> ArgumentParser:

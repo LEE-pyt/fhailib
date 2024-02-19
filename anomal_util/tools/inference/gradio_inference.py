@@ -17,7 +17,7 @@ import gradio.inputs
 import gradio.outputs
 import numpy as np
 
-from anomalib.deploy import Inferencer
+from anomal_util.deploy import Inferencer
 
 
 def get_parser() -> ArgumentParser:

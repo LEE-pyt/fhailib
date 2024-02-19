@@ -14,12 +14,12 @@ from argparse import ArgumentParser, Namespace
 
 from pytorch_lightning import Trainer, seed_everything
 
-from anomalib.config import get_configurable_parameters
-from anomalib.data import get_datamodule
-from anomalib.data.utils import TestSplitMode
-from anomalib.models import get_model
-from anomalib.utils.callbacks import LoadModelCallback, get_callbacks
-from anomalib.utils.loggers import configure_logger, get_experiment_logger
+from anomal_util.config import get_configurable_parameters
+from anomal_util.data import get_datamodule
+from anomal_util.data.utils import TestSplitMode
+from anomal_util.models import get_model
+from anomal_util.utils.callbacks import LoadModelCallback, get_callbacks
+from anomal_util.utils.loggers import configure_logger, get_experiment_logger
 
 logger = logging.getLogger("anomalib")
 

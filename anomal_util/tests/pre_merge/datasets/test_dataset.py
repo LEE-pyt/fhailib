@@ -5,10 +5,10 @@ import random
 import pandas as pd
 import pytest
 
-from anomalib.data import TaskType
-from anomalib.data.folder import FolderDataset
-from anomalib.data.utils import get_transforms, LabelName
-from anomalib.data.utils.split import concatenate_datasets, random_split
+from anomal_util.data import TaskType
+from anomal_util.data.folder import FolderDataset
+from anomal_util.data.utils import get_transforms, LabelName
+from anomal_util.data.utils.split import concatenate_datasets, random_split
 from tests.helpers.dataset import get_dataset_path
 
 

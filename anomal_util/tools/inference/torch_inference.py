@@ -13,9 +13,9 @@ from pathlib import Path
 
 import torch
 
-from anomalib.data.utils import generate_output_image_filename, get_image_filenames, read_image
-from anomalib.deploy import TorchInferencer
-from anomalib.post_processing import Visualizer
+from anomal_util.data.utils import generate_output_image_filename, get_image_filenames, read_image
+from anomal_util.deploy import TorchInferencer
+from anomal_util.post_processing import Visualizer
 
 
 def get_parser() -> ArgumentParser:
