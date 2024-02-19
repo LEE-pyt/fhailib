@@ -24,7 +24,7 @@ def init_project(data_folder, project_name, task):
     os.makedirs(label_folder, exist_ok=True)
     os.makedirs(meta_folder, exist_ok=True)
 
-    if task == Task.anomaly_detection:
+    if task == Task.ANOMALY_DETECTION:
         good_folder = os.path.join(img_folder, "good")
         bad_folder = os.path.join(img_folder, "bad")
         os.makedirs(good_folder, exist_ok=True)
