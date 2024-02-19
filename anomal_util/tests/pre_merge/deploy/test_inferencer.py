@@ -12,11 +12,11 @@ import torch
 from omegaconf import DictConfig, ListConfig
 from pytorch_lightning import Trainer
 
-from anomalib.config import get_configurable_parameters
-from anomalib.data import get_datamodule
-from anomalib.deploy import OpenVINOInferencer, TorchInferencer
-from anomalib.models import get_model
-from anomalib.utils.callbacks import get_callbacks
+from anomal_util.config import get_configurable_parameters
+from anomal_util.data import get_datamodule
+from anomal_util.deploy import OpenVINOInferencer, TorchInferencer
+from anomal_util.models import get_model
+from anomal_util.utils.callbacks import get_callbacks
 from tests.helpers.dataset import TestDataset, get_dataset_path
 from tests.helpers.inference import MockImageLoader
 

@@ -13,7 +13,7 @@ import numpy as np
 import pytest
 from albumentations.pytorch import ToTensorV2
 
-from anomalib.config import get_configurable_parameters
+from anomal_util.config import get_configurable_parameters
 
 
 @pytest.fixture(scope="package")

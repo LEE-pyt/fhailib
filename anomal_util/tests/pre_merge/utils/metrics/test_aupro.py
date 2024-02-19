@@ -3,7 +3,7 @@
 import numpy as np
 import torch
 
-from anomalib.utils.metrics import AUPRO
+from anomal_util.utils.metrics import AUPRO
 from tests.helpers.aupro_reference import calculate_au_pro
 
 

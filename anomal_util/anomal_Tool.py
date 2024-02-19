@@ -1,11 +1,11 @@
 from matplotlib import pyplot as plt
-from anomalib.data.utils import read_image
-from anomalib.deploy import OpenVINOInferencer, TorchInferencer
+from anomal_util.data.utils import read_image
+from anomal_util.deploy import OpenVINOInferencer, TorchInferencer
 from pytorch_lightning import Trainer
-from anomalib.config import get_configurable_parameters
-from anomalib.data import get_datamodule
-from anomalib.models import get_model
-from anomalib.utils.callbacks import LoadModelCallback, get_callbacks
+from anomal_util.config import get_configurable_parameters
+from anomal_util.data import get_datamodule
+from anomal_util.models import get_model
+from anomal_util.utils.callbacks import LoadModelCallback, get_callbacks
 from pathlib import Path
 
 def openvino_inference(image_path, model_path, metadata_path):

@@ -8,10 +8,10 @@ import pytest
 import torch
 from pytorch_lightning import Trainer
 
-from anomalib.data import get_datamodule
-from anomalib.models import get_model
-from anomalib.utils.callbacks import get_callbacks
-from anomalib.utils.metrics import AnomalyScoreThreshold
+from anomal_util.data import get_datamodule
+from anomal_util.models import get_model
+from anomal_util.utils.callbacks import get_callbacks
+from anomal_util.utils.metrics import AnomalyScoreThreshold
 from tests.helpers.config import get_test_configurable_parameters
 
 

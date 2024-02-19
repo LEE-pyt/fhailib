@@ -5,10 +5,10 @@ import os
 import numpy as np
 import pytest
 
-from anomalib.config import update_input_size_config
-from anomalib.data import Avenue, BTech, Folder, MVTec, ShanghaiTech, UCSDped, Visa, get_datamodule
-from anomalib.data.utils import DirType
-from anomalib.pre_processing.transforms import Denormalize, ToNumpy
+from anomal_util.config import update_input_size_config
+from anomal_util.data import Avenue, BTech, Folder, MVTec, ShanghaiTech, UCSDped, Visa, get_datamodule
+from anomal_util.data.utils import DirType
+from anomal_util.pre_processing.transforms import Denormalize, ToNumpy
 from tests.helpers.config import get_test_configurable_parameters
 from tests.helpers.dataset import TestDataset, get_dataset_path
 

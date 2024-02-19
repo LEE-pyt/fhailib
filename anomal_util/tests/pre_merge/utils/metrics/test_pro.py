@@ -2,8 +2,8 @@ import torch
 from torch import Tensor
 from torchvision.transforms import RandomAffine
 
-from anomalib.data.utils import random_2d_perlin
-from anomalib.utils.metrics.pro import (
+from anomal_util.data.utils import random_2d_perlin
+from anomal_util.utils.metrics.pro import (
     PRO,
     connected_components_cpu,
     connected_components_gpu,

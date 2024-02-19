@@ -7,9 +7,9 @@ import pytorch_lightning as pl
 from omegaconf import OmegaConf
 import torch
 
-from anomalib.models.components import AnomalyModule
-from anomalib.utils.callbacks.metrics_configuration import MetricsConfigurationCallback
-from anomalib.utils.metrics.collection import AnomalibMetricCollection
+from anomal_util.models.components import AnomalyModule
+from anomal_util.utils.callbacks.metrics_configuration import MetricsConfigurationCallback
+from anomal_util.utils.metrics.collection import AnomalibMetricCollection
 from tests.helpers.dummy import DummyDataModule, DummyLogger, DummyModel
 
 

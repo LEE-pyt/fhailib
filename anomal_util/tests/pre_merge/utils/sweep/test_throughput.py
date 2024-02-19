@@ -6,11 +6,11 @@
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
-from anomalib.data import TaskType
-from anomalib.data.folder import FolderDataset
-from anomalib.deploy import ExportMode
+from anomal_util.data import TaskType
+from anomal_util.data.folder import FolderDataset
+from anomal_util.deploy import ExportMode
 
-from anomalib.utils.sweep.helpers import get_torch_throughput, get_openvino_throughput
+from anomal_util.utils.sweep.helpers import get_torch_throughput, get_openvino_throughput
 
 from tests.helpers.dataset import TestDataset
 

@@ -4,15 +4,15 @@ from pathlib import Path
 
 import pytest
 
-from anomalib.data import TaskType
-from anomalib.data.base.video import VideoTargetFrame
-from anomalib.data.ucsd_ped import (
+from anomal_util.data import TaskType
+from anomal_util.data.base.video import VideoTargetFrame
+from anomal_util.data.ucsd_ped import (
     UCSDpedClipsIndexer,
     UCSDpedDataset,
     make_ucsd_dataset,
 )
-from anomalib.data.utils import get_transforms
-from anomalib.data.utils.split import Split, random_split
+from anomal_util.data.utils import get_transforms
+from anomal_util.data.utils.split import Split, random_split
 from tests.helpers.dataset import get_dataset_path
 
 

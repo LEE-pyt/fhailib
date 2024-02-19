@@ -5,9 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from anomalib.data.folder import FolderDataset
-from anomalib.data.synthetic import SyntheticAnomalyDataset
-from anomalib.data.utils import get_transforms
+from anomal_util.data.folder import FolderDataset
+from anomal_util.data.synthetic import SyntheticAnomalyDataset
+from anomal_util.data.utils import get_transforms
 from tests.helpers.dataset import get_dataset_path
 
 

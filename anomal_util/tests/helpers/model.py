@@ -11,12 +11,12 @@ from omegaconf import DictConfig, ListConfig
 from pytorch_lightning import LightningDataModule, Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 
-from anomalib.config import get_configurable_parameters, update_nncf_config
-from anomalib.data import TaskType, get_datamodule
-from anomalib.models import get_model
-from anomalib.models.components import AnomalyModule
-from anomalib.utils.callbacks import get_callbacks
-from anomalib.utils.callbacks.visualizer import BaseVisualizerCallback
+from anomal_util.config import get_configurable_parameters, update_nncf_config
+from anomal_util.data import TaskType, get_datamodule
+from anomal_util.models import get_model
+from anomal_util.models.components import AnomalyModule
+from anomal_util.utils.callbacks import get_callbacks
+from anomal_util.utils.callbacks.visualizer import BaseVisualizerCallback
 
 
 def setup_model_train(
