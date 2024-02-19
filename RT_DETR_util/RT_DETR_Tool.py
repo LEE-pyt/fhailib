@@ -8,8 +8,28 @@ import glob
 from RT_DETR_util.tools import export_onnx
 from RT_DETR_util.tools import train
 from matplotlib import pyplot as plt
+import requests
+import zipfile
 
-def convert_labels_to_json(mscoco_category2name, txt_files_path, output_json_path):
+
+def delete_unmatched_files(txt_files_path, images_path):
+    """서로 매치되지 않는 이미지 파일과 레이블 파일을 삭제합니다."""
+    txt_files = glob.glob(os.path.join(txt_files_path, '*.txt'))
+    image_files = [txt.replace('labels', 'images').replace('.txt', '.jpg') for txt in txt_files]
+    # 이미지 파일이 없는 .txt 파일 삭제
+    for txt_file, image_file in zip(txt_files, image_files):
+        if not os.path.exists(image_file):
+            print(f"삭제: 이미지 파일이 없는 레이블 파일 {txt_file}")
+            os.remove(txt_file)
+
+    # 레이블 파일이 없는 이미지 파일 삭제
+    for image_file in glob.glob(os.path.join(images_path, '*.jpg')):
+        txt_file = image_file.replace('images', 'labels').replace('.jpg', '.txt')
+        if not os.path.exists(txt_file):
+            print(f"삭제: 레이블 파일이 없는 이미지 파일 {image_file}")
+            os.remove(image_file)
+
+def convert_labels_to_json(mscoco_category2name, txt_files_path, output_json_path, images_path):
     """
     .txt 파일들에서 레이블을 읽어 COCO 형식의 JSON 파일로 변환합니다.
 
@@ -27,6 +47,7 @@ def convert_labels_to_json(mscoco_category2name, txt_files_path, output_json_pat
 
     convert_labels_to_json(mscoco_category2name, txt_files_path, output_json_path)
     """
+    delete_unmatched_files(txt_files_path, images_path)
     coco_data = {"images": [], "annotations": [], "categories": []}
     image_id, annotation_id = 0, 0
 
@@ -68,8 +89,6 @@ def convert_labels_to_json(mscoco_category2name, txt_files_path, output_json_pat
 
     with open(output_json_path, 'w') as json_file:
         json.dump(coco_data, json_file)
-
-    print(f"JSON 파일이 생성되었습니다: {output_json_path}")
 
 def compare_model(model_path_1, model_path_2):
     """
@@ -190,6 +209,7 @@ def train_model(yml_path, model_path):
     train.main(args)
 
 def Convert_Onnx(yml_path, model_path):
+
     """
     RT-DETR 모델을 ONNX 형식으로 변환하고 지정된 폴더에 저장하는 함수입니다. 이 함수는 RT-DETR 모델의
     체크포인트와 설정 파일을 기반으로 ONNX 모델을 생성합니다. 변환된 모델은 체크포인트가 위치한 폴더 내에
@@ -227,3 +247,116 @@ def Convert_Onnx(yml_path, model_path):
 
     args = Convert_Onnx_Args()
     export_onnx.main(args)
+
+def download_file(url, save_path):
+    """지정된 URL에서 파일을 다운로드하고 지정된 경로에 저장하는 함수"""
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(save_path, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+def download_dataset(dataset_path):
+    """데이터셋 폴더의 존재 여부를 확인하고, 없으면 다운로드하는 함수"""
+    if not os.path.exists(dataset_path):
+        print(f"{dataset_path}가 존재하지 않습니다. 데이터셋을 다운로드합니다.")
+        os.makedirs(dataset_path, exist_ok=True)  # 폴더 생성
+        save_path = os.path.join(dataset_path, 'dataset.zip')
+        download_file("https://ultralytics.com/assets/coco128.zip", save_path)
+        print("다운로드 완료.")
+        unzip_dataset(save_path, dataset_path)
+        os.remove(save_path)
+    else:
+        print(f"{dataset_path}가 이미 존재합니다.")
+
+def unzip_dataset(zip_path, extract_to):
+    """다운로드한 zip 파일을 압축 해제하는 함수"""
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to)
+    print("압축 해제 완료.")
+
+
+def config_category2name():
+    mscoco_category2name = {
+        1: 'person',
+        2: 'bicycle',
+        3: 'car',
+        4: 'motorcycle',
+        5: 'airplane',
+        6: 'bus',
+        7: 'train',
+        8: 'truck',
+        9: 'boat',
+        10: 'traffic light',
+        11: 'fire hydrant',
+        13: 'stop sign',
+        14: 'parking meter',
+        15: 'bench',
+        16: 'bird',
+        17: 'cat',
+        18: 'dog',
+        19: 'horse',
+        20: 'sheep',
+        21: 'cow',
+        22: 'elephant',
+        23: 'bear',
+        24: 'zebra',
+        25: 'giraffe',
+        27: 'backpack',
+        28: 'umbrella',
+        31: 'handbag',
+        32: 'tie',
+        33: 'suitcase',
+        34: 'frisbee',
+        35: 'skis',
+        36: 'snowboard',
+        37: 'sports ball',
+        38: 'kite',
+        39: 'baseball bat',
+        40: 'baseball glove',
+        41: 'skateboard',
+        42: 'surfboard',
+        43: 'tennis racket',
+        44: 'bottle',
+        46: 'wine glass',
+        47: 'cup',
+        48: 'fork',
+        49: 'knife',
+        50: 'spoon',
+        51: 'bowl',
+        52: 'banana',
+        53: 'apple',
+        54: 'sandwich',
+        55: 'orange',
+        56: 'broccoli',
+        57: 'carrot',
+        58: 'hot dog',
+        59: 'pizza',
+        60: 'donut',
+        61: 'cake',
+        62: 'chair',
+        63: 'couch',
+        64: 'potted plant',
+        65: 'bed',
+        67: 'dining table',
+        70: 'toilet',
+        72: 'tv',
+        73: 'laptop',
+        74: 'mouse',
+        75: 'remote',
+        76: 'keyboard',
+        77: 'cell phone',
+        78: 'microwave',
+        79: 'oven',
+        80: 'toaster',
+        81: 'sink',
+        82: 'refrigerator',
+        84: 'book',
+        85: 'clock',
+        86: 'vase',
+        87: 'scissors',
+        88: 'teddy bear',
+        89: 'hair drier',
+        90: 'toothbrush'
+    }
+    return mscoco_category2name

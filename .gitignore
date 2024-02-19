@@ -1,0 +1,82 @@
+# 바이트코드 컴파일 생성 파일
+__pycache__/
+*.py[cod]
+
+# C 확장 모듈
+*.so
+
+# 가상 환경
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# PyInstaller
+# 일반적으로 PyInstaller로 생성된 실행 파일/폴더를 무시합니다.
+dist/
+build/
+*.spec
+
+# Jupyter 노트북
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Spyder 프로젝트 설정
+.spyderproject
+.spyproject
+
+# Rope 프로젝트 설정
+.ropeproject
+
+# mkdocs 문서
+/site
+
+# mypy 타입 체크 캐시
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pytest 캐시
+.pytest_cache/
+
+# 로컬 환경 설정 파일
+.env
+.env.local
+
+# 로그 파일
+*.log
+
+# 데이터베이스 파일
+*.sqlite
+
+# Flask 파일
+instance/
+.webassets-cache
+
+# Scrapy 파일
+.scrapy
+
+# Django
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3
+db.sqlite3-journal
+media
+
+# Flask
+instance/
+.webassets-cache
+
+# Scrapy
+.scrapy
+
+# Sphinx 문서
+_build/

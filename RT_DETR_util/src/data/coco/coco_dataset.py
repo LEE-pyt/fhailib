@@ -24,7 +24,7 @@ __all__ = ['CocoDetection']
 class CocoDetection(torchvision.datasets.CocoDetection):
     __inject__ = ['transforms']
     __share__ = ['remap_mscoco_category']
-    
+
     def __init__(self, img_folder, ann_file, transforms, return_masks, remap_mscoco_category=False):
         super(CocoDetection, self).__init__(img_folder, ann_file)
         self._transforms = transforms
@@ -43,8 +43,8 @@ class CocoDetection(torchvision.datasets.CocoDetection):
         # ['boxes', 'masks', 'labels']:
         if 'boxes' in target:
             target['boxes'] = datapoints.BoundingBox(
-                target['boxes'], 
-                format=datapoints.BoundingBoxFormat.XYXY, 
+                target['boxes'],
+                format=datapoints.BoundingBoxFormat.XYXY,
                 spatial_size=img.size[::-1]) # h w
 
         if 'masks' in target:
@@ -52,7 +52,7 @@ class CocoDetection(torchvision.datasets.CocoDetection):
 
         if self._transforms is not None:
             img, target = self._transforms(img, target)
-            
+
         return img, target
 
     def extra_repr(self) -> str:
@@ -61,7 +61,7 @@ class CocoDetection(torchvision.datasets.CocoDetection):
         if hasattr(self, '_transforms') and self._transforms is not None:
             s += f' transforms:\n   {repr(self._transforms)}'
 
-        return s 
+        return s
 
 
 def convert_coco_poly_to_mask(segmentations, height, width):
@@ -107,7 +107,7 @@ class ConvertCocoPolysToMask(object):
             classes = [mscoco_category2label[obj["category_id"]] for obj in anno]
         else:
             classes = [obj["category_id"] for obj in anno]
-            
+
         classes = torch.tensor(classes, dtype=torch.int64)
 
         if self.return_masks:
@@ -147,7 +147,7 @@ class ConvertCocoPolysToMask(object):
 
         target["orig_size"] = torch.as_tensor([int(w), int(h)])
         target["size"] = torch.as_tensor([int(w), int(h)])
-    
+
         return image, target
 
 
