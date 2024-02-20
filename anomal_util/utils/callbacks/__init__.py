@@ -60,10 +60,10 @@ def get_callbacks(config: DictConfig | ListConfig) -> list[Callback]:
     monitor_metric = None if "early_stopping" not in config.model.keys() else config.model.early_stopping.metric
     monitor_mode = "max" if "early_stopping" not in config.model.keys() else config.model.early_stopping.mode
 
-    current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
 
     checkpoint = ModelCheckpoint(
-        dirpath=os.path.join(config.project.path, "weights", current_datetime, "lightning"),
+        dirpath=os.path.join(config.project.path, "result", config.time, "lightning"),
         filename="model",
         monitor=monitor_metric,
         mode=monitor_mode,
@@ -146,7 +146,7 @@ def get_callbacks(config: DictConfig | ListConfig) -> list[Callback]:
             callbacks.append(
                 ExportCallback(
                     input_size=config.model.input_size,
-                    dirpath= os.path.join(config.project.path, "weights", current_datetime),
+                    dirpath= os.path.join(config.project.path, "result", config.time),
                     filename="model",
                     export_mode=ExportMode(config.optimization.export_mode),
                 )
@@ -197,7 +197,7 @@ def add_visualizer_callback(callbacks: list[Callback], config: DictConfig | List
         config.visualization.inputs_are_normalized = not config.post_processing.normalization_method == "none"
 
     if config.visualization.log_images or config.visualization.save_images or config.visualization.show_images:
-        image_save_path = config.visualization.image_save_path or config.project.path + "/images"
+        image_save_path = config.visualization.image_save_path or config.project.path + "/result/"+config.time+"/images"
         for callback in (ImageVisualizerCallback, MetricVisualizerCallback):
             callbacks.append(
                 callback(

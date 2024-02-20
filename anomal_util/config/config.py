@@ -254,7 +254,8 @@ def get_configurable_parameters(
     config_model_name = config.model.name
     config_dataset_name = config.dataset.name
 
-
+    current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    config.time = current_datetime
     # Project Configs
 
     project_path = config_project_path  / config_model_name
@@ -288,11 +289,11 @@ def get_configurable_parameters(
     #         "This does not ensure that your results will be written in an empty directory and you may overwrite files."
     #     )
 
-    (project_path / "weights" ).mkdir(parents=True, exist_ok=True)
+    (project_path / "result" / config.time / "meta").mkdir(parents=True, exist_ok=True)
     (project_path / "images").mkdir(parents=True, exist_ok=True)
-    (project_path / "meta").mkdir(parents=True, exist_ok=True)
+    
     # write the original config for eventual debug (modified config at the end of the function)
-    (project_path / "meta" / "config_original.yaml").write_text(OmegaConf.to_yaml(config_original))
+    (project_path / "result" / config.time / "meta" / "config_original.yaml").write_text(OmegaConf.to_yaml(config_original))
 
     config.project.path = str(project_path)
 
@@ -335,6 +336,6 @@ def get_configurable_parameters(
                 None if config.metrics.threshold.adaptive else config.metrics.threshold.pixel_default
             )
 
-    (project_path / "meta" / "config.yaml").write_text(OmegaConf.to_yaml(config))
+    (project_path / "result" / config.time / "meta" /  "config.yaml").write_text(OmegaConf.to_yaml(config))
 
     return config
