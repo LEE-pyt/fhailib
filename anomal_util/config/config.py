@@ -252,13 +252,13 @@ def get_configurable_parameters(
 
     config_project_path = Path(config.project.path)
     config_model_name = config.model.name
-    config_dataset_name = config.dataset.name
+    config_dataset_name = config.dataset.category
 
     current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     config.time = current_datetime
     # Project Configs
 
-    project_path = config_project_path  / config_model_name
+    project_path = config_project_path  / config_dataset_name
 
     if config.dataset.format == "folder":
         if "mask" in config.dataset:
@@ -291,7 +291,7 @@ def get_configurable_parameters(
 
     (project_path / "result" / config.time / "meta").mkdir(parents=True, exist_ok=True)
     (project_path / "images").mkdir(parents=True, exist_ok=True)
-    
+
     # write the original config for eventual debug (modified config at the end of the function)
     (project_path / "result" / config.time / "meta" / "config_original.yaml").write_text(OmegaConf.to_yaml(config_original))
 
