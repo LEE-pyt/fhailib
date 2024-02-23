@@ -262,11 +262,7 @@ def get_configurable_parameters(
 
     if config.dataset.format == "folder":
         if "mask" in config.dataset:
-            warn(
-                DeprecationWarning(
-                    "mask will be deprecated in favor of mask_dir in config.dataset in a future release."
-                )
-            )
+            warn(DeprecationWarning("mask will be deprecated in favor of mask_dir in config.dataset in a future release."))
             config.dataset.mask_dir = config.dataset.mask
         if "path" in config.dataset:
             warn(DeprecationWarning("path will be deprecated in favor of root in config.dataset in a future release."))

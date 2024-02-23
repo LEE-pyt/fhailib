@@ -1,9 +1,9 @@
 dataset:
   name: mvtec
   format: mvtec
-  path: E:\Mytask\main\Dataset\MVTec
+  path: ./DATA/EOE_inside/images
   task: segmentation
-  category: toothbrush
+  category: EOE_inside
   train_batch_size: 32
   eval_batch_size: 32
   num_workers: 8
@@ -50,8 +50,8 @@ metrics:
 
 visualization:
   show_images: False # show images on the screen
-  save_images: True # save images to the file system
-  log_images: True # log images to the available loggers (if any)
+  save_images: true # save images to the file system
+  log_images: true # log images to the available loggers (if any)
   image_save_path: null # path to which images will be saved
   mode: full # options: ["full", "simple"]
 
@@ -104,7 +104,7 @@ trainer:
   auto_lr_find: false
   replace_sampler_ddp: true
   detect_anomaly: false
-  auto_scale_batch_size: false
+  auto_scale_batch_size: true
   plugins: null
   move_metrics_to_cpu: false
   multiple_trainloader_mode: max_size_cycle

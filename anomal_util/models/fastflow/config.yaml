@@ -1,9 +1,9 @@
 dataset:
   name: mvtec
   format: mvtec
-  path: ./datasets/MVTec
+  path: ./DATA/EOE_inside/images
   task: segmentation
-  category: toothbrush
+  category: EOE_inside
   train_batch_size: 32
   eval_batch_size: 32
   num_workers: 8

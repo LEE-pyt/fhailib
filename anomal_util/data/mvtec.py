@@ -189,7 +189,7 @@ class MVTecDataset(AnomalibDataset):
     ) -> None:
         super().__init__(task=task, transform=transform)
 
-        self.root_category = Path(root) / Path(category)
+        self.root_category = Path(root)
         self.split = split
 
     def _setup(self) -> None:
@@ -279,7 +279,8 @@ class MVTec(AnomalibDataModule):
 
     def prepare_data(self) -> None:
         """Download the dataset if not available."""
-        if (self.root / self.category).is_dir():
+        print (self.root)
+        if (self.root).is_dir():
             logger.info("Found the dataset.")
         else:
             download_and_extract(self.root, DOWNLOAD_INFO)
