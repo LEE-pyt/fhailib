@@ -207,7 +207,7 @@ def get_configurable_parameters(
     weight_file: str | None = None,
     config_filename: str | None = "config",
     config_file_extension: str | None = "yaml",
-) -> DictConfig | ListConfig:
+    ) -> DictConfig | ListConfig:
     """Get configurable parameters.
 
     Args:

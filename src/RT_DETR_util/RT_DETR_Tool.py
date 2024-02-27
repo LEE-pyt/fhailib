@@ -275,7 +275,6 @@ def unzip_dataset(zip_path, extract_to):
         zip_ref.extractall(extract_to)
     print("압축 해제 완료.")
 
-
 def config_category2name():
     mscoco_category2name = {
         1: 'person',
