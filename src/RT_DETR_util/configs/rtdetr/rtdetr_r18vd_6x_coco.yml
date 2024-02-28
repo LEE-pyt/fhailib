@@ -9,7 +9,7 @@ __include__: [
 
 epoches: 5
 
-output_dir: ./results/rtdetr_r18vd_6x
+output_dir: ./DATA/COCO/result
 
 PResNet:
   depth: 18

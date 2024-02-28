@@ -10,7 +10,7 @@ from RT_DETR_util.tools import train
 from matplotlib import pyplot as plt
 import requests
 import zipfile
-
+import shutil
 
 def delete_unmatched_files(txt_files_path, images_path):
     """서로 매치되지 않는 이미지 파일과 레이블 파일을 삭제합니다."""
@@ -145,7 +145,7 @@ def inferencer(image_path, model_path="model.onnx", thrh=0.5, mode=False):
       inferencer("/path/to/your/image.jpg", model_path="model.onnx", thrh=0.5, mode=Fasle)
     """
     sess = ort.InferenceSession(model_path)
-
+    mscoco_category2name = config_category2name()
     if mode == True:
         image_files = glob.glob(os.path.join(image_path, '*.jpg'))
     elif mode == False:
@@ -168,10 +168,11 @@ def inferencer(image_path, model_path="model.onnx", thrh=0.5, mode=False):
 
         for score, label, box in zip(scores[0], labels[0], boxes[0]):
             if score > thrh:
+                label_name = mscoco_category2name.get(label-1, 'Unknown')  # 라벨 이름을 가져옴, 해당 라벨이 없으면 'Unknown'
                 x1, y1, x2, y2 = box
                 rect = plt.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=1, edgecolor='r', facecolor='none')
                 ax.add_patch(rect)
-                ax.text(x1, y1, f'{label}: {score:.2f}', color='blue', fontsize=12, verticalalignment='top')
+                ax.text(x1, y1, f'{label_name}: {score:.2f}', color='blue', fontsize=12, verticalalignment='top')
 
         plt.axis('off')
         plt.show()
@@ -256,10 +257,41 @@ def download_file(url, save_path):
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
 
+def move_and_cleanup_dataset(extract_to):
+    """압축 해제된 데이터셋에서 필요한 작업을 수행하는 함수"""
+    # train2017 폴더에서 상위 폴더로 파일 이동
+    for category in ['images', 'labels']:
+        src_folder = os.path.join(extract_to, 'coco128', category, 'train2017')
+        dst_folder = os.path.join(extract_to, category)
+        if not os.path.exists(dst_folder):
+            os.makedirs(dst_folder, exist_ok=True)
+        for file_name in os.listdir(src_folder):
+            shutil.move(os.path.join(src_folder, file_name), dst_folder)
+
+        # 원래의 train2017 폴더 삭제
+        shutil.rmtree(src_folder)
+
+    # coco128 폴더 밖으로 images와 labels 폴더 이동
+    for category in ['images', 'labels']:
+        src_folder = os.path.join(extract_to, 'coco128', category)
+        dst_folder = os.path.join(extract_to, category)
+        #shutil.move(src_folder, extract_to)
+
+    # 더 이상 필요 없는 coco128 폴더 삭제
+    shutil.rmtree(os.path.join(extract_to, 'coco128'))
+
+def unzip_dataset(zip_path, extract_to):
+    """다운로드한 zip 파일을 압축 해제하는 함수"""
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to)
+
+    # 압축 해제 후 필요한 파일 정리 및 이동
+    move_and_cleanup_dataset(extract_to)
+
 def download_dataset(dataset_path):
     """데이터셋 폴더의 존재 여부를 확인하고, 없으면 다운로드하는 함수"""
-    if not os.path.exists(dataset_path):
-        print(f"{dataset_path}가 존재하지 않습니다. 데이터셋을 다운로드합니다.")
+    if not os.path.exists(os.path.join(dataset_path, 'images')) or not os.path.exists(os.path.join(dataset_path, 'labels')):
+        print(f"{dataset_path} 내 images 또는 labels 폴더가 존재하지 않습니다. 데이터셋을 다운로드합니다.")
         os.makedirs(dataset_path, exist_ok=True)  # 폴더 생성
         save_path = os.path.join(dataset_path, 'dataset.zip')
         download_file("https://ultralytics.com/assets/coco128.zip", save_path)
@@ -267,13 +299,7 @@ def download_dataset(dataset_path):
         unzip_dataset(save_path, dataset_path)
         os.remove(save_path)
     else:
-        print(f"{dataset_path}가 이미 존재합니다.")
-
-def unzip_dataset(zip_path, extract_to):
-    """다운로드한 zip 파일을 압축 해제하는 함수"""
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-        zip_ref.extractall(extract_to)
-    print("압축 해제 완료.")
+        print(f"{dataset_path} 내 images와 labels 폴더가 이미 존재합니다.")
 
 def config_category2name():
     mscoco_category2name = {
